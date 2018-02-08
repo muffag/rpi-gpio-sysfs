@@ -9,20 +9,24 @@ function sleep(duration) {
   try {
     let gpio40 = new GPIOPin(40);
     let gpio41 = new GPIOPin(41);
+    let gpio16 = new GPIOPin(16);
     await gpio40.setup(GPIOPin.DIR.OUT);
     await gpio41.setup(GPIOPin.DIR.OUT);
+    await gpio16.setup(GPIOPin.DIR.IN, GPIOPin.EDGE.BOTH);
 
-    let x = true;
+    gpio16.listen((value) => {
+      console.log('GPIO16:', value);
+    });
 
-    while(true) {
-      await gpio40.write(x);
-      await gpio41.write(!x);
-      x = !x;
-      await sleep(500);
-      console.log('read: ', await gpio40.read());
-      console.log('read: ', await gpio41.read());
-      await sleep(500);
-    }
+
+    // let x = true;
+    // while(true) {
+    //   //await gpio40.write(x);
+    //   //await gpio41.write(!x);
+    //   x = !x;
+    //   console.log(await gpio16.read());
+    //   await sleep(100);
+    // }
   } catch (ex) {
     console.log(ex);
   }

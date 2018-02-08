@@ -1,4 +1,6 @@
 const utility = require('./utility.js');
+const Epoll = require('epoll').Epoll;
+const fs = require('fs-extra');
 
 class GPIOPin {
   constructor(pinNumber) {
@@ -48,6 +50,22 @@ class GPIOPin {
 
     let value = await utility.getValue(this.pinNumber);
     return value === '1';
+  }
+
+  listen(callback) {
+    let poller = new Epoll(async (error, fileDescriptor, events) => {
+      let readResult = await utility.clearInterrupt(fileDescriptor);
+      let value = readResult.buffer.toString() === '1';
+      callback(value);
+    });
+
+    // Open and read the GPIO value file to prevent an initial unauthentic
+    // interrupt.
+    var fd = fs.openSync(`${utility.PATH}/gpio${this.pinNumber}/value`, 'r');
+    utility.clearInterrupt(fd);
+
+    // Start watching for interrupts
+    poller.add(fd, Epoll.EPOLLPRI);
   }
 }
 

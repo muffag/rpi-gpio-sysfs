@@ -1,29 +1,33 @@
 const fs = require('fs-extra');
 
-const PATH = '/sys/class/gpio';
-
 let utility = {
+  PATH: '/sys/class/gpio',
+
   exportPin: (pin) => {
-    return fs.writeFile(`${PATH}/export`, pin);
+    return fs.writeFile(`${utility.PATH}/export`, pin);
   },
   unexportPin: (pin) => {
-    return fs.writeFile(`${PATH}/unexport`, pin);
+    return fs.writeFile(`${utility.PATH}/unexport`, pin);
   },
   setDirection: (pin, direction) => {
-    return fs.writeFile(`${PATH}/gpio${pin}/direction`, direction);
+    return fs.writeFile(`${utility.PATH}/gpio${pin}/direction`, direction);
   },
   setEdge: (pin, edge) => {
-    return fs.writeFile(`${PATH}/gpio${pin}/edge`, edge);
+    return fs.writeFile(`${utility.PATH}/gpio${pin}/edge`, edge);
   },
   setValue: (pin, value) => {
-    return fs.writeFile(`${PATH}/gpio${pin}/value`, value);
+    return fs.writeFile(`${utility.PATH}/gpio${pin}/value`, value);
   },
   getValue: async (pin, value) => {
-    let result = await fs.readFile(`${PATH}/gpio${pin}/value`, 'utf-8');
+    let result = await fs.readFile(`${utility.PATH}/gpio${pin}/value`, 'utf-8');
     return result.trim();
   },
   isExported: (pin) => {
-    return fs.exists(`${PATH}/gpio${pin}`);
+    return fs.exists(`${utility.PATH}/gpio${pin}`);
+  },
+
+  clearInterrupt: (fd) => {
+    return fs.read(fd, new Buffer(1), 0, 1, 0);
   },
 
   /**
