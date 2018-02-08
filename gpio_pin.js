@@ -9,7 +9,7 @@ class GPIOPin {
     this.isSetup = false;
   }
 
-  async setup(direction) {
+  async setup(direction = GPIOPin.DIR.OUT, edge = GPIOPin.EDGE.NONE) {
     let exported = await utility.isExported(this.pinNumber);
 
     if (exported) {
@@ -18,6 +18,7 @@ class GPIOPin {
 
     await utility.tryFunc(utility.exportPin, [this.pinNumber]);
     await utility.tryFunc(utility.setDirection, [this.pinNumber, direction]);
+    await utility.tryFunc(utility.setEdge, [this.pinNumber, edge]);
 
     this.isSetup = true;
   }
@@ -39,11 +40,29 @@ class GPIOPin {
 
     await utility.setValue(this.pinNumber, value);
   }
+
+  async read() {
+    if (!this.isSetup) {
+      throw new Error('Pin not setup yet');
+    }
+
+    let value = await utility.getValue(this.pinNumber);
+    return value === '1';
+  }
 }
 
 GPIOPin.DIR = {
   OUT: 'out',
   IN: 'in',
+  LOW: 'low',
+  HIGH: 'high',
+};
+
+GPIOPin.EDGE = {
+  NONE: 'none',
+  RISING: 'rising',
+  FALLING: 'falling',
+  BOTH: 'both',
 };
 
 module.exports = GPIOPin;

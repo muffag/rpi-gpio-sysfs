@@ -12,8 +12,15 @@ let utility = {
   setDirection: (pin, direction) => {
     return fs.writeFile(`${PATH}/gpio${pin}/direction`, direction);
   },
+  setEdge: (pin, edge) => {
+    return fs.writeFile(`${PATH}/gpio${pin}/edge`, edge);
+  },
   setValue: (pin, value) => {
     return fs.writeFile(`${PATH}/gpio${pin}/value`, value);
+  },
+  getValue: async (pin, value) => {
+    let result = await fs.readFile(`${PATH}/gpio${pin}/value`, 'utf-8');
+    return result.trim();
   },
   isExported: (pin) => {
     return fs.exists(`${PATH}/gpio${pin}`);

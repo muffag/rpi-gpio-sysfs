@@ -18,7 +18,10 @@ function sleep(duration) {
       await gpio40.write(x);
       await gpio41.write(!x);
       x = !x;
-      await sleep(1000);
+      await sleep(500);
+      console.log('read: ', await gpio40.read());
+      console.log('read: ', await gpio41.read());
+      await sleep(500);
     }
   } catch (ex) {
     console.log(ex);
