@@ -8,7 +8,7 @@ Access GPIO pins via [sysfs](https://elinux.org/RPi_GPIO_Code_Samples#sysfs.2C_p
 ### Write
 
 ```javascript
-const GPIOPin = require('../src/gpio_pin');
+const GPIOPin = require('rpi-gpio-sysfs');
 
 const pin = new GPIOPin(18);
 
@@ -19,7 +19,7 @@ await pin.write(status);
 ### Read
 
 ```javascript
-const GPIOPin = require('../src/gpio_pin');
+const GPIOPin = require('rpi-gpio-sysfs');
 
 const pin = new GPIOPin(18);
 
@@ -30,7 +30,7 @@ let status = await pin.read();
 ### Listen
 
 ```javascript
-const GPIOPin = require('../src/gpio_pin');
+const GPIOPin = require('rpi-gpio-sysfs');
 
 const pin = new GPIOPin(18);
 
