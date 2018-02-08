@@ -8,6 +8,10 @@ const GPIOPin = require('../src/gpio_pin');
     gpio16.listen((status) => {
       console.log('Status is', status);
     });
+
+    setTimeout(() => {
+      gpio16.removeListener();
+    }, 10000);
   } catch (ex) {
     console.log(ex);
   }

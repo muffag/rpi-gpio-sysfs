@@ -68,6 +68,16 @@ class GPIOPin {
 
     // Start watching for interrupts
     poller.add(fd, Epoll.EPOLLPRI);
+
+    this._removeListener = () => {
+      poller.remove(fd).close();
+    };
+  }
+
+  removeListener() {
+    if (typeof this._removeListener === 'function') {
+      this._removeListener();
+    }
   }
 }
 
