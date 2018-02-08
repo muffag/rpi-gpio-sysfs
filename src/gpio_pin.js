@@ -11,6 +11,12 @@ class GPIOPin {
     this.isSetup = false;
   }
 
+  /**
+   * Exports a pin and sets direction and edge. If it is already exported, this
+   * function will unexport it first.
+   * @param {string} direction
+   * @param {string} edge 
+   */
   async setup(direction = GPIOPin.DIR.OUT, edge = GPIOPin.EDGE.NONE) {
     let exported = await utility.isExported(this.pinNumber);
 
@@ -26,7 +32,7 @@ class GPIOPin {
   }
 
   /**
-   * Write to the pin
+   * Write value to the pin.
    * @param {boolean} value 
    */
   async write(value) {
@@ -43,6 +49,10 @@ class GPIOPin {
     await utility.setValue(this.pinNumber, value);
   }
 
+  /**
+   * Reads value from pin.
+   * @returns {boolean}
+   */
   async read() {
     if (!this.isSetup) {
       throw new Error('Pin not setup yet');
@@ -52,6 +62,10 @@ class GPIOPin {
     return value === '1';
   }
 
+  /**
+   * Starts listening to interrupts using epoll.
+   * @param {Function} callback 
+   */
   listen(callback) {
     let poller = new Epoll(async (error, fileDescriptor, events) => {
       if (error) throw error;
@@ -74,6 +88,9 @@ class GPIOPin {
     };
   }
 
+  /**
+   * Removes epoll listener.
+   */
   removeListener() {
     if (typeof this._removeListener === 'function') {
       this._removeListener();
