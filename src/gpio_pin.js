@@ -54,6 +54,8 @@ class GPIOPin {
 
   listen(callback) {
     let poller = new Epoll(async (error, fileDescriptor, events) => {
+      if (error) throw error;
+
       let readResult = await utility.clearInterrupt(fileDescriptor);
       let value = readResult.buffer.toString() === '1';
       callback(value);
