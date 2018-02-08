@@ -43,7 +43,7 @@ pin.listen((status) => {
 
 ## Todo
 
-- [ ] Mirror all functions from `rpi-gpio`
+- [x] Mirror all functions from `rpi-gpio`
 - [ ] Add unit tests
 - [ ] Add documentation
 - [ ] Publish to NPM
