@@ -4,6 +4,12 @@ Basic access to GPIO pins via [sysfs](https://elinux.org/RPi_GPIO_Code_Samples#s
 
 The library has been tested to work with the Compute Module 3, other Raspberry Pi's should work but will not be officially supported.
 
+## Installation
+
+```
+npm install rpi-gpio-sysfs
+```
+
 ## Usage
 
 ### Write
