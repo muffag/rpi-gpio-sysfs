@@ -1,10 +1,11 @@
 {
   "name": "rpi-gpio-sysfs",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Access to Raspberry Pi's GPIO pins via sysfs",
-  "main": "src/gpio_pin.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "format": "prettier --write \"src/**/*.{js,ts,json,md}\""
   },
   "keywords": [
     "raspberrypi",
@@ -13,7 +14,11 @@
   "author": "Patrick Muff",
   "license": "MIT",
   "dependencies": {
-    "epoll": "^1.0.2",
-    "fs-extra": "^5.0.0"
+    "fs-extra": "^8.1.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^8.0.0",
+    "prettier": "^1.18.2",
+    "typescript": "^3.6.2"
   }
 }

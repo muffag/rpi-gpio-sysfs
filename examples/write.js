@@ -1,14 +1,14 @@
-const GPIOPin = require('../src/gpio_pin');
+const Pin = require('../dist');
 
 (async () => {
   try {
-    let gpio40 = new GPIOPin(40);
-    let gpio41 = new GPIOPin(41);
-    await gpio40.setup(GPIOPin.DIR.OUT);
-    await gpio41.setup(GPIOPin.DIR.OUT);
+    let gpio40 = new Pin(40);
+    let gpio41 = new Pin(41);
+    await gpio40.setup('out');
+    await gpio41.setup('out');
 
     let status = true;
-    while(true) {
+    while (true) {
       await gpio40.write(status);
       await gpio41.write(!status);
       status = !status;
@@ -20,5 +20,5 @@ const GPIOPin = require('../src/gpio_pin');
 })();
 
 function sleep(duration) {
-  return new Promise((resolve) => setTimeout(resolve, duration));
+  return new Promise(resolve => setTimeout(resolve, duration));
 }

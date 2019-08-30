@@ -1,49 +1,29 @@
 # rpi-gpio-sysfs
 
-Access GPIO pins via [sysfs](https://elinux.org/RPi_GPIO_Code_Samples#sysfs.2C_part_of_the_raspbian_operating_system). This repository is heavily inspired by [rpi-gpio.js](https://github.com/JamesBarwell/rpi-gpio.js).
+Basic access to GPIO pins via [sysfs](https://elinux.org/RPi_GPIO_Code_Samples#sysfs.2C_part_of_the_raspbian_operating_system) in Node.js. This package has native TypeScript support and uses a Promise-based API.
 
+The library has been tested to work with the Compute Module 3, other Raspberry Pi's should work but will not be officially supported.
 
 ## Usage
 
 ### Write
 
-```javascript
-const GPIOPin = require('rpi-gpio-sysfs');
+```typescript
+import { Pin } from 'rpi-gpio-sysfs';
 
-const pin = new GPIOPin(18);
+const pin = new Pin(18);
 
-await pin.setup(GPIOPin.DIR.OUT);
-await pin.write(status);
+await pin.setup('out');
+await pin.write(true);
 ```
 
 ### Read
 
-```javascript
-const GPIOPin = require('rpi-gpio-sysfs');
+```typescript
+import { Pin } from 'rpi-gpio-sysfs';
 
-const pin = new GPIOPin(18);
+const pin = new Pin(18);
 
-await pin.setup(GPIOPin.DIR.IN);
-let status = await pin.read();
+await pin.setup('in');
+const status: boolean = await pin.read();
 ```
-
-### Listen
-
-```javascript
-const GPIOPin = require('rpi-gpio-sysfs');
-
-const pin = new GPIOPin(18);
-
-await pin.setup(GPIOPin.DIR.IN, GPIOPin.EDGE.BOTH);
-
-pin.listen((status) => {
-  console.log('Status is', status);
-});
-```
-
-## Todo
-
-- [x] Mirror all functions from `rpi-gpio`
-- [ ] Add unit tests
-- [ ] Add documentation
-- [ ] Publish to NPM

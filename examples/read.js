@@ -1,9 +1,9 @@
-const GPIOPin = require('../src/gpio_pin');
+const { Pin } = require('../dist');
 
 (async () => {
   try {
-    let gpio16 = new GPIOPin(16);
-    await gpio16.setup(GPIOPin.DIR.IN, GPIOPin.EDGE.BOTH);
+    let gpio16 = new Pin(16);
+    await gpio16.setup('in', 'both');
 
     console.log('Status is', await gpio16.read());
   } catch (ex) {
