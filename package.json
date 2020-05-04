@@ -4,7 +4,7 @@
   "description": "Access to Raspberry Pi's GPIO pins via sysfs",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "rm -rf dist && tsc",
     "format": "prettier --write \"src/**/*.{js,ts,json,md}\""
   },
   "keywords": [
