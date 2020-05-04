@@ -15,21 +15,19 @@ npm install rpi-gpio-sysfs
 ### Write
 
 ```typescript
-import { Pin } from 'rpi-gpio-sysfs';
+import { createPin } from 'rpi-gpio-sysfs';
 
-const pin = new Pin(18);
+const pin = await createPin(18, 'out');
 
-await pin.setup('out');
 await pin.write(true);
 ```
 
 ### Read
 
 ```typescript
-import { Pin } from 'rpi-gpio-sysfs';
+import { createPin } from 'rpi-gpio-sysfs';
 
-const pin = new Pin(18);
+const pin = createPin(18, 'in');
 
-await pin.setup('in');
 const status: boolean = await pin.read();
 ```
