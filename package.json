@@ -1,6 +1,6 @@
 {
   "name": "rpi-gpio-sysfs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Access to Raspberry Pi's GPIO pins via sysfs",
   "main": "dist/index.js",
   "scripts": {
