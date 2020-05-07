@@ -1,9 +1,9 @@
 import { readFile } from 'fs-extra';
-import { SYSFS_BASE_PATH } from './constants';
+import { getGpioPinPath } from './get_gpio_pin_path';
 
 export async function getValue(pin: string | number): Promise<boolean> {
   const result = (
-    await readFile(`${SYSFS_BASE_PATH}/gpio${pin.toString()}/value`, 'utf-8')
+    await readFile(getGpioPinPath(pin) + '/value', 'utf-8')
   ).trim();
 
   return result === '1';

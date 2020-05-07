@@ -1,9 +1,6 @@
 import { writeFile } from 'fs-extra';
-import { SYSFS_BASE_PATH } from './constants';
+import { getGpioPinPath } from './get_gpio_pin_path';
 
 export function setValue(pin: string | number, value: boolean) {
-  return writeFile(
-    `${SYSFS_BASE_PATH}/gpio${pin.toString()}/value`,
-    value ? '1' : '0'
-  );
+  return writeFile(getGpioPinPath(pin) + '/value', value ? '1' : '0');
 }

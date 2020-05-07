@@ -5,6 +5,7 @@ import { setValue } from './sysfs_helpers/set_value';
 import { isExported } from './sysfs_helpers/is_exported';
 import { unexportPin } from './sysfs_helpers/unexport_pin';
 import { exportPin } from './sysfs_helpers/export_pin';
+import { waitForGpioAccessPermissions } from './sysfs_helpers/await_gpio_permissions';
 
 export interface Pin {
   write(value: boolean): Promise<void>;
@@ -24,6 +25,7 @@ export async function createPin(
 
   // Setup pin
   await exportPin(pinNumber);
+  waitForGpioAccessPermissions(pinNumber);
   await setDirection(pinNumber, direction);
   await setEdge(pinNumber, edge);
 

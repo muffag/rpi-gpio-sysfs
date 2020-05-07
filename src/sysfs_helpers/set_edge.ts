@@ -1,8 +1,8 @@
 import { writeFile } from 'fs-extra';
-import { SYSFS_BASE_PATH } from './constants';
+import { getGpioPinPath } from './get_gpio_pin_path';
 
 export type PinEdge = 'none' | 'rising' | 'falling' | 'both';
 
 export function setEdge(pin: string | number, edge: PinEdge) {
-  return writeFile(`${SYSFS_BASE_PATH}/gpio${pin.toString()}/edge`, edge);
+  return writeFile(getGpioPinPath(pin) + '/edge', edge);
 }
