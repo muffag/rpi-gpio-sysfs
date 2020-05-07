@@ -1,9 +1,9 @@
 import { stat } from 'fs-extra';
-import { SYSFS_BASE_PATH } from './constants';
+import { getGpioPinPath } from './get_gpio_pin_path';
 
 export async function isExported(pin: string | number): Promise<boolean> {
   try {
-    await stat(`${SYSFS_BASE_PATH}/gpio${pin.toString()}`);
+    await stat(getGpioPinPath(pin));
     return true;
   } catch (error) {
     return false;
